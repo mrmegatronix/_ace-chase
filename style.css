@@ -191,7 +191,7 @@ ul.rules-list li {
 
 /* Countdown Timer */
 .countdown-timer {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 14rem;
     line-height: 1;
     color: white; /* White numbers usually look cleaner for timers */
@@ -218,8 +218,10 @@ ul.rules-list li {
 }
 .rule-timer-label { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: #aaa; }
 .rule-timer-value { 
+    font-family: 'Inter', sans-serif;
     font-size: 4rem; 
     font-weight: bold; 
+    font-variant-numeric: tabular-nums;
 }
 
 /* Step Box (How to Win) */

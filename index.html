@@ -193,28 +193,33 @@
         updateCountdown();
 
         // --- Rule Page Timers (Tuesday/Saturday specific) ---
+        // --- Rule Page Timers (Tuesday/Saturday specific) ---
         function updateRuleTimers() {
-            const now = new Date(new Date().toLocaleString("en-US", {timeZone: "Pacific/Auckland"}));
+            // Get current time in NZ
+            const now = new Date();
+            const nzTimeStr = now.toLocaleString("en-US", {timeZone: "Pacific/Auckland"});
+            const nzDate = new Date(nzTimeStr); // Shifted NZ date
             
             function getNextDraw(dayIndex, hour, minute) {
-                let target = new Date(now);
+                let target = new Date(nzDate); // Start from shifted NZ date
                 target.setHours(hour, minute, 0, 0);
                 
-                // If today is the day, check if passed
-                if (now.getDay() === dayIndex) {
-                    if (now > target) {
-                        target.setDate(target.getDate() + 7);
-                    }
+                // If today is the day and we haven't passed the time yet
+                if (nzDate.getDay() === dayIndex) {
+                     if (nzDate.getTime() > target.getTime()) {
+                         // Passed it, go to next week
+                         target.setDate(target.getDate() + 7);
+                     }
                 } else {
                     // Calculate days until next occurrence
-                    let daysUntil = (dayIndex + 7 - now.getDay()) % 7;
+                    let daysUntil = (dayIndex + 7 - nzDate.getDay()) % 7;
                     target.setDate(target.getDate() + daysUntil);
                 }
                 return target;
             }
 
             function formatDiff(target) {
-                const diff = target - now;
+                const diff = target - nzDate; // Both shifted, diff is correct
                 const d = Math.floor(diff / (1000 * 60 * 60 * 24));
                 const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
