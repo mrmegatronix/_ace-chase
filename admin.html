@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chase the Ace - ADMIN</title>
+    <style>
+        body { font-family: sans-serif; padding: 50px; background: #f0f0f0; }
+        .admin-panel { background: white; padding: 30px; border-radius: 8px; max-width: 500px; margin: 0 auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 10px; font-size: 1.5rem; margin: 10px 0; box-sizing: border-box; }
+        button { background: #28a745; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; cursor: pointer; width: 100%; }
+        button:hover { background: #218838; }
+        .status { margin-top: 15px; color: #666; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-panel">
+        <h1>Admin Control</h1>
+        <p>Enter the current Jackpot amount (numbers only):</p>
+        
+        <input type="number" id="jackpotInput" placeholder="e.g. 1500">
+        <button onclick="saveJackpot()">Update TV Screen</button>
+        
+        <div class="status" id="statusMsg"></div>
+    </div>
+
+    <script>
+        // Load current value on page load
+        const currentVal = localStorage.getItem('cta_jackpot');
+        if(currentVal) {
+            document.getElementById('jackpotInput').value = currentVal;
+        }
+
+        function saveJackpot() {
+            const amount = document.getElementById('jackpotInput').value;
+            if(amount) {
+                localStorage.setItem('cta_jackpot', amount);
+                const msg = document.getElementById('statusMsg');
+                msg.innerText = "Saved! The TV screen will update automatically within 5 seconds.";
+                msg.style.color = "green";
+            }
+        }
+    </script>
+</body>
+</html>

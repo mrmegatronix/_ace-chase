@@ -1,0 +1,156 @@
+/* --- Base Reset & Fonts --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Prevent scrolling on TV */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+}
+
+/* --- Background & Confetti --- */
+.background-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: radial-gradient(circle, #2c3e50 0%, #000000 100%);
+}
+
+.confetti {
+    position: absolute;
+    top: -10%;
+    color: rgba(255, 255, 255, 0.1);
+    font-size: 4rem;
+    animation: fall linear infinite;
+    z-index: 1;
+}
+
+/* Randomize confetti positions and speeds */
+.confetti:nth-child(1) { left: 10%; animation-duration: 8s; font-size: 3rem; }
+.confetti:nth-child(2) { left: 25%; animation-duration: 12s; font-size: 5rem; }
+.confetti:nth-child(3) { left: 40%; animation-duration: 6s; font-size: 2rem; }
+.confetti:nth-child(4) { left: 55%; animation-duration: 10s; font-size: 4rem; }
+.confetti:nth-child(5) { left: 70%; animation-duration: 7s; font-size: 3rem; }
+.confetti:nth-child(6) { left: 85%; animation-duration: 11s; font-size: 5rem; }
+.confetti:nth-child(7) { left: 5%; animation-duration: 15s; font-size: 2rem; }
+.confetti:nth-child(8) { left: 90%; animation-duration: 9s; font-size: 4rem; }
+
+@keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.3; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* --- Slideshow Container --- */
+#slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* Above background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* --- Slide Logic --- */
+.slide {
+    position: absolute;
+    width: 80%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* --- Typography & Elements --- */
+h1 {
+    font-size: 6rem;
+    margin: 0;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(255,215,0, 0.6); /* Gold glow */
+    color: #f1c40f;
+}
+
+h2 {
+    font-size: 4rem;
+    margin: 20px 0;
+    color: #ecf0f1;
+    border-bottom: 3px solid #e74c3c;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+h3 {
+    font-size: 3rem;
+    color: #f39c12;
+    margin: 10px 0;
+}
+
+p, li {
+    font-size: 2.5rem;
+    line-height: 1.4;
+}
+
+ul.rules-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul.rules-list li {
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.5);
+    padding: 10px 30px;
+    border-radius: 10px;
+}
+
+/* --- Specific Elements --- */
+.jackpot-amount {
+    font-size: 10rem;
+    font-weight: bold;
+    color: #2ecc71; /* Green */
+    text-shadow: 4px 4px 0 #000;
+    margin: 20px 0;
+    animation: pulse 2s infinite;
+}
+
+.venue-logo {
+    max-height: 150px;
+    margin-bottom: 20px;
+}
+
+.ace-logo {
+    max-height: 200px;
+    margin: 20px 0;
+}
+
+.time-box {
+    background: #c0392b;
+    padding: 10px 40px;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.time-box h3 {
+    color: white;
+    margin: 0;
+}
+
+/* --- Animations --- */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}

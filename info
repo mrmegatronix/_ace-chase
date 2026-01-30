@@ -1,0 +1,7 @@
+create html slideshow for our chase the ace draw.
+project will be displayed on tv screens in our venue.
+needs to rotae through some slides of text and images, also a current jackpot page. have a hidden admin page that will enable the jack pot amount to be changed,
+theres 2 weekly draws. tuesday at 5.30 pm and saturday at 6.30 pm.
+customers purchase a beverage between selected times 3pm - 5.30 tues and 3pm - 6.30pm sat, to gain a ticket and be put in the draw, at draw time a ticket is randomly pulled from a barrel and they need to flip over the ace of spades (from a cabinet of 52 cards) yo win jackpot. jackpot increases after each draw by $100.
+
+slideshow bacground should be a confetti type with the ace of spades symbol / card logo and also venues logo that is attached
