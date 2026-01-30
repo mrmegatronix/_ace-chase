@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chase the Ace - Display</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -36,6 +39,13 @@
             <h2>CURRENT JACKPOT</h2>
             <div class="jackpot-amount" id="display-jackpot">$0.00</div>
             <p>Jackpot increases by $100 after every draw!</p>
+        </div>
+
+        <!-- Slide: Countdown (Only shows between 4pm and draw time) -->
+        <div class="slide" id="countdown-slide">
+            <h2>DRAW STARTS IN</h2>
+            <div class="countdown-timer" id="timer-display">00:00:00</div>
+            <div class="countdown-label">GET YOUR TICKETS NOW!</div>
         </div>
 
         <!-- Slide 3: Tuesday Rules -->
@@ -84,13 +94,19 @@
         // --- Slideshow Logic ---
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
+        let isCountdownActive = false;
 
         function nextSlide() {
             // Remove active class from current
             slides[currentSlide].classList.remove('active');
             
-            // Calculate next slide index
-            currentSlide = (currentSlide + 1) % slides.length;
+            // Find next valid slide (skip countdown if not active)
+            let loopCount = 0;
+            do {
+                currentSlide = (currentSlide + 1) % slides.length;
+                loopCount++;
+                if (loopCount > slides.length) break; // Safety break
+            } while (slides[currentSlide].id === 'countdown-slide' && !isCountdownActive);
             
             // Add active class to next
             slides[currentSlide].classList.add('active');
@@ -102,7 +118,7 @@
         // --- Jackpot Logic ---
         // TODO: Paste your Google Sheet CSV URL here inside the quotes
         // Example: "https://docs.google.com/spreadsheets/d/e/2PACX-.../pub?output=csv"
-        const googleSheetUrl = "https://docs.google.com/spreadsheets/d/1OLWAKCEGzqDMrVnA8RfLfCEQoLlVeSDH8O0rt1Ltd4U/edit?usp=sharing"; 
+        const googleSheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWKQ868KUAuJv03Z4ULML1XtCTp7aJ8066j17W5pAYpT9yTj0foQt-PMa3aJCViFC6pzKX3jZU8pnk/pub?output=csv"; 
 
         async function updateJackpotDisplay() {
             const displayEl = document.getElementById('display-jackpot');
@@ -132,6 +148,48 @@
         // Check for jackpot updates every 5 seconds (in case admin updates it)
         updateJackpotDisplay();
         setInterval(updateJackpotDisplay, 60000);
+
+        // --- Countdown Logic (NZ Time) ---
+        function updateCountdown() {
+            const now = new Date();
+            // Create date object based on NZ time
+            const nzTimeStr = now.toLocaleString("en-US", {timeZone: "Pacific/Auckland"});
+            const nzDate = new Date(nzTimeStr);
+            
+            const day = nzDate.getDay(); // 0=Sun, 1=Mon, 2=Tue... 6=Sat
+            const hours = nzDate.getHours();
+            const minutes = nzDate.getMinutes();
+            
+            let target = null;
+            
+            // Tuesday (Day 2): Active 4:00 PM (16:00) to 5:30 PM (17:30)
+            if (day === 2 && (hours >= 16 && (hours < 17 || (hours === 17 && minutes < 30)))) {
+                target = new Date(nzDate);
+                target.setHours(17, 30, 0, 0);
+            }
+            
+            // Saturday (Day 6): Active 4:00 PM (16:00) to 6:30 PM (18:30)
+            if (day === 6 && (hours >= 16 && (hours < 18 || (hours === 18 && minutes < 30)))) {
+                target = new Date(nzDate);
+                target.setHours(18, 30, 0, 0);
+            }
+
+            if (target) {
+                isCountdownActive = true;
+                const diff = target - nzDate;
+                
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('timer-display').innerText = 
+                    (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+            } else {
+                isCountdownActive = false;
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
     </script>
 </body>
 </html>

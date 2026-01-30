@@ -5,7 +5,7 @@ body, html {
     height: 100%;
     width: 100%;
     overflow: hidden; /* Prevent scrolling on TV */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #1a1a1a;
     color: white;
 }
@@ -76,25 +76,28 @@ body, html {
 
 /* --- Typography & Elements --- */
 h1 {
+    font-family: 'Oswald', sans-serif;
     font-size: 6rem;
     margin: 0;
     text-transform: uppercase;
-    text-shadow: 0 0 20px rgba(255,215,0, 0.6); /* Gold glow */
-    color: #f1c40f;
+    text-shadow: 2px 2px 0px #000;
+    color: #ffc400; /* Coasters Gold */
 }
 
 h2 {
+    font-family: 'Oswald', sans-serif;
     font-size: 4rem;
     margin: 20px 0;
-    color: #ecf0f1;
-    border-bottom: 3px solid #e74c3c;
+    color: #ffffff;
+    border-bottom: 3px solid #ffc400;
     display: inline-block;
     padding-bottom: 10px;
 }
 
 h3 {
+    font-family: 'Oswald', sans-serif;
     font-size: 3rem;
-    color: #f39c12;
+    color: #ffc400;
     margin: 10px 0;
 }
 
@@ -117,9 +120,10 @@ ul.rules-list li {
 
 /* --- Specific Elements --- */
 .jackpot-amount {
+    font-family: 'Oswald', sans-serif;
     font-size: 10rem;
     font-weight: bold;
-    color: #2ecc71; /* Green */
+    color: #ffc400; /* Coasters Gold */
     text-shadow: 4px 4px 0 #000;
     margin: 20px 0;
     animation: pulse 2s infinite;
@@ -136,7 +140,8 @@ ul.rules-list li {
 }
 
 .time-box {
-    background: #c0392b;
+    background: #000000;
+    border: 2px solid #ffc400;
     padding: 10px 40px;
     border-radius: 50px;
     margin-bottom: 30px;
@@ -144,8 +149,24 @@ ul.rules-list li {
 }
 
 .time-box h3 {
-    color: white;
+    color: #ffc400;
     margin: 0;
+}
+
+/* --- Countdown Timer --- */
+.countdown-timer {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12rem;
+    color: #ffc400;
+    text-shadow: 5px 5px 0 #000;
+    margin: 10px 0;
+}
+
+.countdown-label {
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: white;
 }
 
 /* --- Animations --- */
