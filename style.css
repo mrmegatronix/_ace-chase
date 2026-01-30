@@ -31,21 +31,14 @@ body, html {
     animation: fall linear infinite;
     z-index: 1;
     text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    /* Default values, overridden by JS */
+    opacity: 0; 
 }
 
-.confetti:nth-child(1) { left: 10%; animation-duration: 8s; font-size: 3rem; }
-.confetti:nth-child(2) { left: 25%; animation-duration: 12s; font-size: 5rem; }
-.confetti:nth-child(3) { left: 40%; animation-duration: 6s; font-size: 2rem; }
-.confetti:nth-child(4) { left: 55%; animation-duration: 10s; font-size: 4rem; }
-.confetti:nth-child(5) { left: 70%; animation-duration: 7s; font-size: 3rem; }
-.confetti:nth-child(6) { left: 85%; animation-duration: 11s; font-size: 5rem; }
-.confetti:nth-child(7) { left: 5%; animation-duration: 15s; font-size: 2rem; }
-.confetti:nth-child(8) { left: 90%; animation-duration: 9s; font-size: 4rem; }
-
 @keyframes fall {
-    0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-    20% { opacity: 0.4; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg) translateX(20px); opacity: 0; }
 }
 
 /* --- Slideshow Container --- */
@@ -214,6 +207,19 @@ ul.rules-list li {
     letter-spacing: 8px;
     color: #f59e0b;
     font-weight: 600;
+}
+
+/* Rule Page Specific Timers */
+.rule-timer-box {
+    margin-bottom: 20px;
+    color: #d4af37;
+    font-family: 'Playfair Display', serif;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+.rule-timer-label { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: #aaa; }
+.rule-timer-value { 
+    font-size: 4rem; 
+    font-weight: bold; 
 }
 
 /* Step Box (How to Win) */
