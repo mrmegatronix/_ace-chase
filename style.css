@@ -27,7 +27,7 @@ body, html {
     position: absolute;
     top: -10%;
     color: rgba(212, 175, 55, 0.1); /* Gold tint */
-    font-size: 4rem;
+    font-size: 6rem;
     animation: fall linear infinite;
     z-index: 1;
     text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
@@ -82,7 +82,7 @@ body, html {
 h1 {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
-    font-size: 8rem;
+    font-size: 13rem; /* Increased from 8rem */
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 5px;
@@ -94,7 +94,7 @@ h1 {
 h2 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 5rem;
+    font-size: 7rem; /* Increased from 5rem */
     margin: 20px 0;
     color: #ffffff;
     text-shadow: 0 2px 10px rgba(0,0,0,0.8);
@@ -115,7 +115,7 @@ h2::after {
 
 h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
+    font-size: 5rem; /* Increased from 3.5rem */
     color: #f59e0b; /* Ember Gold */
     margin: 15px 0;
     text-shadow: 0 2px 8px rgba(0,0,0,0.6);
@@ -123,7 +123,7 @@ h3 {
 
 p, li {
     font-family: 'Inter', sans-serif;
-    font-size: 2.2rem;
+    font-size: 3.2rem; /* Increased from 2.2rem */
     line-height: 1.5;
     color: #e5e7eb; /* Gray-200 */
     text-shadow: 0 2px 4px rgba(0,0,0,0.8);
@@ -160,7 +160,7 @@ ul.rules-list li {
 /* Jackpot Display */
 .jackpot-amount {
     font-family: 'Playfair Display', serif;
-    font-size: 12rem;
+    font-size: 18rem; /* Increased from 12rem */
     font-weight: 900;
     color: #d4af37;
     text-shadow: 
@@ -169,6 +169,7 @@ ul.rules-list li {
         0 0 60px rgba(212, 175, 55, 0.2);
     margin: 10px 0;
     animation: pulse-glow 3s infinite ease-in-out;
+    line-height: 1;
 }
 
 /* Time Box - Glass Pill */
@@ -186,13 +187,13 @@ ul.rules-list li {
 
 .time-box h3 {
     margin: 0;
-    font-size: 3rem;
+    font-size: 4rem; /* Increased from 3rem */
 }
 
 /* Countdown Timer */
 .countdown-timer {
     font-family: 'Inter', sans-serif;
-    font-size: 14rem;
+    font-size: 22rem; /* Increased from 14rem */
     line-height: 1;
     color: white; /* White numbers usually look cleaner for timers */
     text-shadow: 0 0 40px rgba(245, 158, 11, 0.6); /* Orange/Gold Glow */
@@ -202,7 +203,7 @@ ul.rules-list li {
 
 .countdown-label {
     font-family: 'Inter', sans-serif;
-    font-size: 3rem;
+    font-size: 4rem; /* Increased from 3rem */
     text-transform: uppercase;
     letter-spacing: 8px;
     color: #f59e0b;
@@ -216,10 +217,10 @@ ul.rules-list li {
     font-family: 'Playfair Display', serif;
     text-shadow: 0 2px 5px rgba(0,0,0,0.8);
 }
-.rule-timer-label { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: #aaa; }
+.rule-timer-label { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; color: #aaa; }
 .rule-timer-value { 
     font-family: 'Inter', sans-serif;
-    font-size: 4rem; 
+    font-size: 7rem; /* Increased from 4rem */
     font-weight: bold; 
     font-variant-numeric: tabular-nums;
 }
@@ -241,13 +242,13 @@ ul.rules-list li {
 
 /* Images */
 .venue-logo {
-    max-height: 200px;
+    max-height: 300px; /* Increased from 200px */
     margin-bottom: 40px;
     filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
 }
 
 .ace-logo {
-    max-height: 250px;
+    max-height: 350px; /* Increased from 250px */
     margin: 30px 0;
     filter: drop-shadow(0 0 30px rgba(0,0,0,0.9));
     animation: subtleZoom 4s infinite alternate ease-in-out;
