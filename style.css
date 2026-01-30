@@ -293,3 +293,8 @@ ul.rules-list li {
     from { width: 0%; }
     to { width: 100%; }
 }
+
+/* --- Specific Overrides for Next Draw Slide (10% smaller) --- */
+#next-draw-slide h2 { font-size: 6.5rem; }
+#next-draw-slide .countdown-timer { font-size: 20rem; }
+#next-draw-slide .countdown-label { font-size: 3.7rem; }
