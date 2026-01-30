@@ -41,16 +41,20 @@
             <div class="countdown-label">GET YOUR TICKETS NOW!</div>
         </div>
 
+        <!-- Slide: Next Draw General Countdown -->
+        <div class="slide" id="next-draw-slide">
+            <h2>NEXT DRAW IN</h2>
+            <div class="countdown-timer" id="next-draw-timer">00d 00:00:00</div>
+            <div class="countdown-label" id="next-draw-label">LOADING...</div>
+        </div>
+
         <!-- Slide 3: Tuesday Rules -->
         <div class="slide">
             <h2>TUESDAY DRAW</h2>
             <div class="time-box">
                 <h3>Draw Time: 5:30 PM</h3>
             </div>
-            <div class="rule-timer-box">
-                <div class="rule-timer-label">Next Draw In</div>
-                <div class="rule-timer-value" id="tuesday-timer">00d 00h 00m</div>
-            </div>
+
             <ul class="rules-list">
                 <li>Purchase a beverage between <strong>3:00 PM - 5:30 PM</strong></li>
                 <li>Receive a ticket for every drink purchased</li>
@@ -64,10 +68,7 @@
             <div class="time-box">
                 <h3>Draw Time: 6:30 PM</h3>
             </div>
-            <div class="rule-timer-box">
-                <div class="rule-timer-label">Next Draw In</div>
-                <div class="rule-timer-value" id="saturday-timer">00d 00h 00m</div>
-            </div>
+
             <ul class="rules-list">
                 <li>Purchase a beverage between <strong>3:00 PM - 6:30 PM</strong></li>
                 <li>Receive a ticket for every drink purchased</li>
@@ -112,7 +113,10 @@
                 currentSlide = (currentSlide + 1) % slides.length;
                 loopCount++;
                 if (loopCount > slides.length) break; // Safety break
-            } while (slides[currentSlide].id === 'countdown-slide' && !isCountdownActive);
+            } while (
+                (slides[currentSlide].id === 'countdown-slide' && !isCountdownActive) ||
+                (slides[currentSlide].id === 'next-draw-slide' && isCountdownActive)
+            );
             
             // Add active class to next
             slides[currentSlide].classList.add('active');
@@ -210,48 +214,58 @@
 
         // --- Rule Page Timers (Tuesday/Saturday specific) ---
         // --- Rule Page Timers (Tuesday/Saturday specific) ---
-        function updateRuleTimers() {
-            // Get current time in NZ
+        // --- Global Next Draw Countdown Logic ---
+        function updateNextDrawTimer() {
             const now = new Date();
             const nzTimeStr = now.toLocaleString("en-US", {timeZone: "Pacific/Auckland"});
-            const nzDate = new Date(nzTimeStr); // Shifted NZ date
-            
-            function getNextDraw(dayIndex, hour, minute) {
-                let target = new Date(nzDate); // Start from shifted NZ date
-                target.setHours(hour, minute, 0, 0);
+            const nzDate = new Date(nzTimeStr);
+
+            // Define Draw Times: Tue 17:30 (Day 2), Sat 18:30 (Day 6)
+            function getNextOccurrence(dayIndex, hours, minutes) {
+                let target = new Date(nzDate);
+                target.setHours(hours, minutes, 0, 0);
                 
-                // If today is the day and we haven't passed the time yet
                 if (nzDate.getDay() === dayIndex) {
-                     if (nzDate.getTime() > target.getTime()) {
-                         // Passed it, go to next week
-                         target.setDate(target.getDate() + 7);
-                     }
+                    if (nzDate.getTime() >= target.getTime()) {
+                        target.setDate(target.getDate() + 7);
+                    }
                 } else {
-                    // Calculate days until next occurrence
                     let daysUntil = (dayIndex + 7 - nzDate.getDay()) % 7;
                     target.setDate(target.getDate() + daysUntil);
                 }
                 return target;
             }
 
-            function formatDiff(target) {
-                const diff = target - nzDate; // Both shifted, diff is correct
-                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                return `${d}d ${h}h ${m}m`;
+            const nextTue = getNextOccurrence(2, 17, 30);
+            const nextSat = getNextOccurrence(6, 18, 30);
+
+            // Determine which is closer
+            let target;
+            let labelText;
+            
+            if (nextTue < nextSat) {
+                target = nextTue;
+                labelText = "TUESDAY DRAW";
+            } else {
+                target = nextSat;
+                labelText = "SATURDAY DRAW";
             }
 
-            // Tuesday (2) at 17:30
-            const nextTue = getNextDraw(2, 17, 30);
-            document.getElementById('tuesday-timer').innerText = formatDiff(nextTue);
+            // Calculate Diff
+            const diff = target - nzDate;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-            // Saturday (6) at 18:30
-            const nextSat = getNextDraw(6, 18, 30);
-            document.getElementById('saturday-timer').innerText = formatDiff(nextSat);
+            // Update DOM
+            document.getElementById('next-draw-timer').innerText = 
+                `${d}d ${h < 10 ? '0'+h : h}:${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+            document.getElementById('next-draw-label').innerText = labelText;
         }
-        setInterval(updateRuleTimers, 1000);
-        updateRuleTimers();
+
+        setInterval(updateNextDrawTimer, 1000);
+        updateNextDrawTimer();
 
         // --- Generate Effective Confetti ---
         const confettiContainer = document.querySelector('.background-effects');
