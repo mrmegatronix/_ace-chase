@@ -88,9 +88,14 @@
 
     </div>
 
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
     <script>
         // --- Configuration ---
-        const slideDuration = 8000; // 8 seconds per slide
+        const slideDuration = 15000; // 15 seconds per slide
 
         // --- Slideshow Logic ---
         let currentSlide = 0;
@@ -111,9 +116,20 @@
             
             // Add active class to next
             slides[currentSlide].classList.add('active');
+            
+            // Reset Progress Bar Animation
+            resetProgressBar();
+        }
+
+        function resetProgressBar() {
+            const bar = document.getElementById('progress-bar');
+            bar.style.animation = 'none';
+            bar.offsetHeight; /* Trigger reflow */
+            bar.style.animation = `progress ${slideDuration}ms linear`;
         }
 
         // Start the rotation
+        resetProgressBar();
         setInterval(nextSlide, slideDuration);
 
         // --- Jackpot Logic ---
