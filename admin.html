@@ -58,8 +58,23 @@
         .status { margin-top: 20px; color: #888; text-align: center; font-size: 0.9rem; }
         .section-divider { margin: 30px 0; border: 0; border-top: 1px solid #333; }
         .section-desc { font-size: 0.9rem; color: #aaa; margin-bottom: 20px; }
-        .scroll-container { text-align: left; max-height: 300px; overflow-y: auto; padding-right: 10px; }
-        .save-btn { margin-top: 20px; background: #333; color: white; border: 1px solid #555; }
+        .scroll-container { text-align: left; max-height: 400px; overflow-y: auto; padding-right: 15px; margin-bottom: 20px; }
+        .save-btn { margin-top: 10px; background: #333; color: white; border: 1px solid #555; margin-bottom: 30px; }
+        textarea { 
+            width: 100%; 
+            padding: 12px; 
+            background: #2a2a2a; 
+            border: 1px solid #444; 
+            color: white; 
+            border-radius: 8px; 
+            font-family: 'Inter', sans-serif;
+            margin: 10px 0 20px 0;
+            resize: vertical;
+            min-height: 80px;
+        }
+        .content-row { margin-bottom: 25px; text-align: left; }
+        .content-row label { font-weight: bold; color: #d4af37; display: block; margin-bottom: 5px; }
+        .content-row input { margin: 5px 0 10px 0; padding: 10px; font-size: 1.1rem; }
     </style>
 </head>
 <body>
@@ -103,6 +118,52 @@
 
         <button onclick="saveSlideSizes()" class="save-btn">Save Text Sizes</button>
         <div class="status" id="sizeStatusMsg"></div>
+
+        <hr class="section-divider">
+
+        <h2>Slide Text Content</h2>
+        <p class="section-desc">Edit the text content of each slide.</p>
+
+        <div class="scroll-container">
+            <!-- Main Slide -->
+            <div class="content-row">
+                <label>Main Title (Slide 1)</label>
+                <input type="text" id="content-main-title" placeholder="CHASE THE ACE">
+                <label>Main Subtitle</label>
+                <input type="text" id="content-main-subtitle" placeholder="Join us for the Draw!">
+            </div>
+
+            <!-- Tuesday Slide -->
+            <div class="content-row">
+                <label>Tuesday Draw Time (Slide 5)</label>
+                <input type="text" id="content-tue-time" placeholder="Draw Time: 5:30 PM">
+                <label>Tuesday Rules (One per line)</label>
+                <textarea id="content-tue-rules" placeholder="Purchase a beverage 3:00 PM - 5:30 PM"></textarea>
+            </div>
+
+            <!-- Saturday Slide -->
+            <div class="content-row">
+                <label>Saturday Draw Time (Slide 6)</label>
+                <input type="text" id="content-sat-time" placeholder="Draw Time: 6:30 PM">
+                <label>Saturday Rules (One per line)</label>
+                <textarea id="content-sat-rules" placeholder="Purchase a beverage 3:00 PM - 6:30 PM"></textarea>
+            </div>
+
+            <!-- Jackpot Footer -->
+            <div class="content-row">
+                <label>Jackpot Slide Footer (Slide 2)</label>
+                <input type="text" id="content-jackpot-footer" placeholder="Jackpot increases by $100 after every draw!">
+            </div>
+
+            <!-- How to Win -->
+            <div class="content-row">
+                <label>How to Win Steps (Slide 7, One per line)</label>
+                <textarea id="content-win-steps" placeholder="1. Pick a card from the cabinet (52 Cards)"></textarea>
+            </div>
+        </div>
+
+        <button onclick="saveSlideContent()" class="save-btn">Save Text Content</button>
+        <div class="status" id="contentStatusMsg"></div>
     </div>
 
     <script>
@@ -151,8 +212,43 @@
             setTimeout(() => { msg.innerText = ""; }, 3000);
         }
 
+        // --- Slide Content Logic ---
+        const contentFields = [
+            'main-title', 'main-subtitle', 
+            'tue-time', 'tue-rules', 
+            'sat-time', 'sat-rules', 
+            'jackpot-footer', 'win-steps'
+        ];
+
+        function loadSlideContent() {
+            const storedContent = localStorage.getItem('cta_slide_content');
+            if (storedContent) {
+                const content = JSON.parse(storedContent);
+                contentFields.forEach(field => {
+                    const el = document.getElementById(`content-${field}`);
+                    if (el && content[field]) el.value = content[field];
+                });
+            }
+        }
+
+        function saveSlideContent() {
+            const content = {};
+            contentFields.forEach(field => {
+                const el = document.getElementById(`content-${field}`);
+                if (el) content[field] = el.value;
+            });
+            
+            localStorage.setItem('cta_slide_content', JSON.stringify(content));
+            
+            const msg = document.getElementById('contentStatusMsg');
+            msg.innerText = "Content Saved! Updating screen...";
+            msg.style.color = "lightgreen";
+            setTimeout(() => { msg.innerText = ""; }, 3000);
+        }
+
         // Initialize
         loadSlideSizes();
+        loadSlideContent();
     </script>
 </body>
 </html>

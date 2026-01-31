@@ -33,9 +33,9 @@
         <!-- Slide 1: Main Title & Logo -->
         <div class="slide active" id="slide-main">
             <img src="logo.png" alt="Venue Logo" class="venue-logo" onerror="this.style.display='none'">
-            <h1>CHASE THE ACE</h1>
+            <h1 id="text-main-title">CHASE THE ACE</h1>
             <img src="ace-of-spades.png" alt="Ace of Spades" class="ace-logo" onerror="this.style.display='none'">
-            <h2>Join us for the Draw!</h2>
+            <h2 id="text-main-subtitle">Join us for the Draw!</h2>
         </div>
 
         <!-- Slide 2: Current Jackpot -->
@@ -43,7 +43,7 @@
         <div class="slide" id="slide-jackpot">
             <h2>CURRENT JACKPOT</h2>
             <div class="jackpot-amount" id="display-jackpot">$0.00</div>
-            <p>Jackpot increases by $100 after every draw!</p>
+            <p id="text-jackpot-footer">Jackpot increases by $100 after every draw!</p>
         </div>
 
         <!-- Slide: Countdown (Only shows between 4pm and draw time) -->
@@ -65,10 +65,10 @@
         <div class="slide" id="slide-tuesday">
             <h2>TUESDAY DRAW</h2>
             <div class="time-box">
-                <h3>Draw Time: 5:30 PM</h3>
+                <h3 id="text-tue-time">Draw Time: 5:30 PM</h3>
             </div>
 
-            <ul class="rules-list">
+            <ul class="rules-list" id="text-tue-rules">
                 <li>Purchase a beverage <strong>3:00 PM - 5:30 PM</strong></li>
                 <li>Receive a ticket for every drink purchased</li>
                 <li>Be here for the draw to win!</li>
@@ -80,10 +80,10 @@
         <div class="slide" id="slide-saturday">
             <h2>SATURDAY DRAW</h2>
             <div class="time-box">
-                <h3>Draw Time: 6:30 PM</h3>
+                <h3 id="text-sat-time">Draw Time: 6:30 PM</h3>
             </div>
 
-            <ul class="rules-list">
+            <ul class="rules-list" id="text-sat-rules">
                 <li>Purchase a beverage <strong>3:00 PM - 6:30 PM</strong></li>
                 <li>Receive a ticket for every drink purchased</li>
                 <li>Be here for the draw to win!</li>
@@ -95,7 +95,7 @@
         <div class="slide" id="slide-win">
             <h2>HOW TO WIN</h2>
             <p>If your ticket is pulled from the barrel:</p>
-            <div class="step-box">
+            <div class="step-box" id="text-win-steps">
                 <p>1. Pick a card from the cabinet (52 Cards)</p>
                 <p>2. Flip the <strong>ACE OF SPADES</strong></p>
                 <p>3. WIN THE JACKPOT!</p>
@@ -354,6 +354,51 @@
         // Check for size updates every 2 seconds
         updateSlideSizes();
         setInterval(updateSlideSizes, 2000);
+
+        // --- Slide Text Content Logic ---
+        function updateSlideContent() {
+            const storedContent = localStorage.getItem('cta_slide_content');
+            if (storedContent) {
+                const content = JSON.parse(storedContent);
+                
+                // Helper to set text content
+                const setVal = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el && val) el.innerText = val;
+                };
+
+                // Helper to set list content (Tuesday/Saturday Rules)
+                const setListVal = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el && val) {
+                        const lines = val.split('\n').filter(line => line.trim() !== '');
+                        el.innerHTML = lines.map(line => `<li>${line}</li>`).join('');
+                    }
+                };
+
+                // Helper to set steps content (How to Win)
+                const setStepsVal = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el && val) {
+                        const lines = val.split('\n').filter(line => line.trim() !== '');
+                        el.innerHTML = lines.map(line => `<p>${line}</p>`).join('');
+                    }
+                };
+
+                setVal('text-main-title', content['main-title']);
+                setVal('text-main-subtitle', content['main-subtitle']);
+                setVal('text-tue-time', content['tue-time']);
+                setListVal('text-tue-rules', content['tue-rules']);
+                setVal('text-sat-time', content['sat-time']);
+                setListVal('text-sat-rules', content['sat-rules']);
+                setVal('text-jackpot-footer', content['jackpot-footer']);
+                setStepsVal('text-win-steps', content['win-steps']);
+            }
+        }
+
+        // Check for content updates every 2 seconds
+        updateSlideContent();
+        setInterval(updateSlideContent, 2000);
 
         // --- Generate Effective Confetti ---
         const confettiContainer = document.querySelector('.background-effects');
