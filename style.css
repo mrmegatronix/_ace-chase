@@ -66,6 +66,7 @@ body, html {
     justify-content: center;
     /* Glass Effect Base */
     padding: 40px;
+    font-size: 1rem; /* Base size for scaling */
 }
 
 .slide.active {
@@ -82,7 +83,7 @@ body, html {
 h1 {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
-    font-size: 13.25rem; /* -3% */
+    font-size: 13.25em; /* Changed to em */
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 5px;
@@ -94,7 +95,7 @@ h1 {
 h2 {
     font-family: 'Playfair Display', serif;
     font-weight: 800; /* Bumped weight */
-    font-size: 7.15rem; /* -3% */
+    font-size: 7.15em; /* Changed to em */
     margin: 20px 0;
     color: #ffffff;
     text-shadow: 0 2px 10px rgba(0,0,0,0.8);
@@ -116,7 +117,7 @@ h2::after {
 h3 {
     font-family: 'Playfair Display', serif;
     font-weight: 700; /* Added Bold */
-    font-size: 5.1rem; /* -3% */
+    font-size: 5.1em; /* Changed to em */
     color: #f59e0b; /* Ember Gold */
     margin: 15px 0;
     text-shadow: 0 2px 8px rgba(0,0,0,0.6);
@@ -125,7 +126,7 @@ h3 {
 p, li {
     font-family: 'Inter', sans-serif;
     font-weight: 600; /* Semi-bold */
-    font-size: 3.25rem; /* -3% */
+    font-size: 3.25em; /* Changed to em */
     line-height: 1.5;
     color: #e5e7eb; /* Gray-200 */
     text-shadow: 0 2px 4px rgba(0,0,0,0.8);
@@ -162,7 +163,7 @@ ul.rules-list li {
 /* Jackpot Display */
 .jackpot-amount {
     font-family: 'Playfair Display', serif;
-    font-size: 18.5rem; /* -3% */
+    font-size: 18.5em; /* Changed to em */
     font-weight: 900;
     color: #d4af37;
     text-shadow: 
@@ -189,7 +190,7 @@ ul.rules-list li {
 
 .time-box h3 {
     margin: 0;
-    font-size: 4.1rem; /* -3% */
+    font-size: 4.1em; /* Changed to em */
     font-weight: 700;
 }
 
@@ -197,7 +198,7 @@ ul.rules-list li {
 .countdown-timer {
     font-family: 'Inter', sans-serif;
     font-weight: 700; /* Bold */
-    font-size: 19rem; /* -15% from 22.3rem */
+    font-size: 15.2em; /* Changed to em */
     line-height: 1;
     color: white; /* White numbers usually look cleaner for timers */
     text-shadow: 0 0 40px rgba(245, 158, 11, 0.6); /* Orange/Gold Glow */
@@ -207,7 +208,7 @@ ul.rules-list li {
 
 .countdown-label {
     font-family: 'Inter', sans-serif;
-    font-size: 4.1rem; /* -3% */
+    font-size: 4.1em; /* Changed to em */
     text-transform: uppercase;
     letter-spacing: 8px;
     color: #f59e0b;
@@ -221,10 +222,10 @@ ul.rules-list li {
     font-family: 'Playfair Display', serif;
     text-shadow: 0 2px 5px rgba(0,0,0,0.8);
 }
-.rule-timer-label { font-size: 2.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: #aaa; }
+.rule-timer-label { font-size: 2.5em; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: #aaa; }
 .rule-timer-value { 
     font-family: 'Inter', sans-serif;
-    font-size: 7.15rem; /* -3% */
+    font-size: 7.15em; /* Changed to em */
     font-weight: 800; /* Extra bold */ 
     font-variant-numeric: tabular-nums;
 }
@@ -241,7 +242,7 @@ ul.rules-list li {
 
 .step-box p {
     margin: 15px 0;
-    font-size: 2.55rem; /* -3% */
+    font-size: 2.55em; /* Changed to em */
     font-weight: 600;
 }
 
@@ -295,9 +296,9 @@ ul.rules-list li {
 }
 
 /* --- Specific Overrides for Next Draw Slide (10% smaller) --- */
-#next-draw-slide h2 { font-size: 6.5rem; }
-#next-draw-slide .countdown-timer { font-size: 17rem; }
-#next-draw-slide .countdown-label { font-size: 3.7rem; }
+#next-draw-slide h2 { font-size: 6.5em; }
+#next-draw-slide .countdown-timer { font-size: 13.6em; }
+#next-draw-slide .countdown-label { font-size: 3.7em; }
 
 /* --- Admin Link --- */
 .admin-link {
