@@ -197,7 +197,7 @@ ul.rules-list li {
 .countdown-timer {
     font-family: 'Inter', sans-serif;
     font-weight: 700; /* Bold */
-    font-size: 22.3rem; /* -3% */
+    font-size: 19rem; /* -15% from 22.3rem */
     line-height: 1;
     color: white; /* White numbers usually look cleaner for timers */
     text-shadow: 0 0 40px rgba(245, 158, 11, 0.6); /* Orange/Gold Glow */
@@ -296,5 +296,5 @@ ul.rules-list li {
 
 /* --- Specific Overrides for Next Draw Slide (10% smaller) --- */
 #next-draw-slide h2 { font-size: 6.5rem; }
-#next-draw-slide .countdown-timer { font-size: 20rem; }
+#next-draw-slide .countdown-timer { font-size: 17rem; }
 #next-draw-slide .countdown-label { font-size: 3.7rem; }
